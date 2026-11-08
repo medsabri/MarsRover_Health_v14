@@ -1,0 +1,11 @@
+event_id,component_id,type,start_h,end_h,description
+E001,computer,panne,7.92,10.72,Redémarrage logiciel non commandé (simulé)
+E002,computer,panne,84.67,85.89,Redémarrage logiciel non commandé (simulé)
+E003,computer,panne,130.34,131.49,Redémarrage logiciel non commandé (simulé)
+E004,computer,panne,559.68,560.36,Redémarrage logiciel non commandé (simulé)
+E005,computer,panne,1525.12,1526.27,Redémarrage logiciel non commandé (simulé)
+E006,comms,panne,870,930,Perte de liaison non planifiée (simulée)
+E007,comms,panne,2270,2330,Perte de liaison non planifiée (simulée)
+E008,comms,panne,2870,2930,Perte de liaison non planifiée (simulée)
+E009,comms,planifiee,1400,1448,Indisponibilité planifiée (simulée)
+E010,computer,planifiee,2000,2006,Mise à jour logicielle planifiée (simulée)

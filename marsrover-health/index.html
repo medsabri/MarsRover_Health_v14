@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MarsRover Health</title>
+  <meta name="description" content="Prototype académique d'évaluation FMDS, de détection d'anomalies et de pronostic des sous-systèmes d'un rover martien — aide à la décision uniquement.">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+  <a class="skip" href="#app">Aller au contenu</a>
+  <div id="shell">
+    <header id="toolbar" role="banner">
+      <div class="tb-row">
+        <a class="tb-brand" href="#/accueil" aria-label="MarsRover Health — accueil">
+          <img class="logo" src="assets/img/logo.png" alt="" width="34" height="34">
+          <span class="tb-name">MarsRover Health<small>FMDS · PHM · ML</small></span>
+        </a>
+        <nav id="nav" class="tb-nav" aria-label="Sous-interfaces"></nav>
+        <time id="clock" class="clock" aria-live="off"><span class="cd"></span><span class="ct"></span></time>
+      </div>
+    </header>
+    <main id="app" tabindex="-1"></main>
+  </div>
+  <div id="toast" aria-live="polite"></div>
+  <noscript><p style="padding:100px 20px">JavaScript est requis pour MarsRover Health.</p></noscript>
+
+  <!-- Configuration et données embarquées (permettent l'ouverture en file://, où fetch() est interdit) -->
+  <script src="data/components.js"></script>
+  <script src="data/datasets.js"></script>
+  <!-- Application (bundle esbuild des modules ES de src/ ; three.js r160, Chart.js 4.4.1, PapaParse 5.4.1, JSZip 3.10.1 épinglés) -->
+  <script src="assets/js/app.bundle.js"></script>
+</body>
+</html>

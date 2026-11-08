@@ -1,0 +1,3 @@
+import { buildTerrain, simulate, DEFAULTS, nominalParams } from '../src/sim/terrain.js';
+for (const p of [DEFAULTS, nominalParams(DEFAULTS)]) { const ter = buildTerrain(p); const o = simulate(ter);
+ console.log('steps', o.t.length, 'dur s', o.t.at(-1).toFixed(0), 'maxI', o.maxI.map(x=>x.toFixed(2)).join(','), 'maxT', o.maxT.map(x=>x.toFixed(1)).join(','), 'slip', o.maxSlip.map(x=>x.toFixed(2)).join(','), 'pitch max', Math.max(...o.pitch).toFixed(1), 'roll', Math.max(...o.roll.map(Math.abs)).toFixed(1), 'E Wh', o.energy.at(-1).toFixed(1), 'dmg', JSON.stringify(o.dmg).slice(0,200), 'Inom', o.Inom.toFixed(3)); }

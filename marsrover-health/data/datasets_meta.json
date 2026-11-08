@@ -1,0 +1,158 @@
+[
+  {
+    "id": "vib_bearings_sim",
+    "file": "degradation_vibration.csv",
+    "name": "Dégradation vibratoire de 10 roulements (run-to-failure)",
+    "provenance": "simulated",
+    "origin": "Fichier fourni « Exemples de scripts/Sous Matlab/Estimation RUL par extrapolation/degradation_vibration.csv ». Les scripts reliability_analysis*.m indiquent qu'il a été « généré par l'outil HTML » : données synthétiques, pas un essai physique.",
+    "citation": "Ressource pédagogique fournie avec le projet (F. Ben Hmida). Aucune citation externe.",
+    "license": "Usage pédagogique interne au projet (non précisé).",
+    "structure": {"format": "CSV, 4 colonnes, format long", "rows": 363, "units_count": 10, "unit_column": "ID_Roulement", "time_column": "Cycle_Heure", "sampling": "1 mesure / 100 h"},
+    "variables": [
+      {"name": "ID_Roulement", "description": "Identifiant de l'essai (R-001…R-010)", "unit": "—", "expected_range": "10 modalités"},
+      {"name": "Cycle_Heure", "description": "Temps de fonctionnement", "unit": "h", "expected_range": "100 – 4500"},
+      {"name": "Vibration_RMS", "description": "Indicateur de santé vibratoire RMS", "unit": "mm/s", "expected_range": "1.0 – 4.0"},
+      {"name": "Statut_Final_1_Panne_0_Censure", "description": "1 sur la dernière ligne = panne observée", "unit": "—", "expected_range": "0/1"}
+    ],
+    "events": {"failure_definition": "Vibration_RMS ≥ seuil de fin de vie", "eol_threshold": {"value": 3.5, "unit": "mm/s", "source": "Valeur FAILURE_THRESHOLD des scripts reliability_analysis*.m (fournis)"}, "censoring": "Aucune censure (10 pannes observées sur 10)", "labels": "Statut final par essai"},
+    "preprocessing": "Suppression du BOM UTF-8 de l'en-tête. Aucune autre modification.",
+    "split": {"train": ["R-001","R-002","R-003","R-004","R-005","R-006"], "validation": ["R-007","R-008"], "test": ["R-009","R-010"], "rule": "Séparation PAR ESSAI (roulement) — jamais par fenêtres d'un même essai."},
+    "roles": ["RUL run-to-failure", "détection d'anomalies (début de dégradation)", "Kaplan–Meier des durées jusqu'à panne", "source de substitution pour mécanismes tournants"],
+    "transfer_warning": true
+  },
+  {
+    "id": "rel500_sim",
+    "file": "reliability_500_sim.csv",
+    "name": "Durées de vie censurées — 500 unités (mélange Weibull « baignoire »)",
+    "provenance": "simulated",
+    "origin": "Fichier fourni « Estimation non paramétrique/reliability_data.mat » (variables T_obs, C_ind), cohérent avec le générateur fourni Data_gen2.m (mélange Weibull α=0,6/β=300 et α=3,5/β=1200, censure U(1000,1200)).",
+    "citation": "Ressource pédagogique fournie.",
+    "license": "Usage pédagogique interne.",
+    "structure": {"format": "CSV converti depuis .mat", "rows": 500, "units_count": 500},
+    "variables": [
+      {"name": "unit_id", "description": "Identifiant attribué à la conversion (U001…)", "unit": "—"},
+      {"name": "T_obs_h", "description": "Temps observé (panne ou censure)", "unit": "h (déclaré dans KM.m)"},
+      {"name": "event_1_panne_0_censure", "description": "C_ind : 1 = défaillance, 0 = censure (convention de KM.m)", "unit": "—"}
+    ],
+    "events": {"failure_definition": "C_ind = 1", "censoring": "Censure à droite (165 / 500)", "eol_threshold": null},
+    "preprocessing": "Conversion .mat → CSV (scipy.io.loadmat). Valeurs inchangées.",
+    "roles": ["Kaplan–Meier / Nelson–Aalen", "Weibull MLE avec censure", "lissage par noyau du taux de défaillance"],
+    "transfer_warning": true
+  },
+  {
+    "id": "bearings_exp",
+    "file": "bearings_datareal_exp.csv",
+    "name": "Durées de vie de 23 roulements à billes",
+    "provenance": "experimental",
+    "origin": "Valeurs recopiées du script fourni Exemples_Simulation_Slides/DataReal.m (« Données Réelles : Temps de Défaillance des Roulements »). Elles coïncident avec le jeu classique d'essais d'endurance de roulements publié par Lieblein & Zelen (1956) — identification faite par l'assistant, à confirmer par l'équipe.",
+    "citation": "J. Lieblein, M. Zelen (1956), J. Res. NBS 57(5) — à confirmer.",
+    "license": "Données publiées (domaine académique).",
+    "structure": {"format": "CSV", "rows": 23, "units_count": 23},
+    "variables": [
+      {"name": "unit_id", "description": "Identifiant attribué", "unit": "—"},
+      {"name": "T_obs_Mcycles", "description": "Durée jusqu'à défaillance", "unit": "10^6 cycles"},
+      {"name": "event_1_panne_0_censure", "description": "Statut (la dernière observation est marquée censurée dans DataReal.m)", "unit": "—"}
+    ],
+    "events": {"failure_definition": "Défaillance par fatigue (essai)", "censoring": "1 censure (dernière valeur, telle que codée dans DataReal.m — le jeu publié original ne comporte que des défaillances : incohérence signalée)", "eol_threshold": null},
+    "preprocessing": "Aucun.",
+    "roles": ["Kaplan–Meier", "Weibull (β de forme des mécanismes tournants)", "substitution : roues, moteurs, articulations"],
+    "transfer_warning": true
+  },
+  {
+    "id": "fire_demo",
+    "file": "fire_detectors_demo.csv",
+    "name": "Détecteurs incendie — 20 unités (étude de cas KM)",
+    "provenance": "simulated",
+    "origin": "Valeurs recopiées du script fourni EtudeCas_KM.m (qualifiées « données expérimentales » dans le script, sans source documentée) → classées SIMULÉ / démonstration par précaution.",
+    "citation": "—",
+    "license": "Usage pédagogique interne.",
+    "structure": {"format": "CSV", "rows": 20, "units_count": 20},
+    "variables": [
+      {"name": "unit_id", "description": "Identifiant attribué", "unit": "—"},
+      {"name": "T_obs_mois", "description": "Temps jusqu'à panne ou censure", "unit": "mois"},
+      {"name": "event_1_panne_0_censure", "description": "1 = panne, 0 = encore en service", "unit": "—"}
+    ],
+    "events": {"failure_definition": "Panne observée", "censoring": "9 censures / 20", "eol_threshold": null},
+    "preprocessing": "Aucun.",
+    "roles": ["Exemple Kaplan–Meier avec forte censure"],
+    "transfer_warning": false
+  },
+  {
+    "id": "rover_telemetry_sim",
+    "file": "rover_telemetry_sim.csv",
+    "name": "Télémétrie rover synthétique (3000 h, ≈122 sols)",
+    "provenance": "simulated",
+    "origin": "Générée par tools/gen_datasets.py (graine 20261106). AUCUNE donnée de mission réelle. Modèles simplifiés : cycle thermique diurne, courant ∝ facteur terrain, échauffement Joule, coupures de liaison planifiées hors passage orbiteur.",
+    "citation": "—",
+    "license": "Libre (généré pour le projet).",
+    "structure": {"format": "CSV large", "rows": 1500, "sampling": "1 échantillon / 2 h", "time_column": "time_h"},
+    "variables": [
+      {"name": "time_h", "unit": "h", "description": "Temps de mission simulé"},
+      {"name": "sol", "unit": "sol", "description": "Numéro de sol (24,66 h)"},
+      {"name": "op_mode", "unit": "—", "description": "drive / arm / comm / idle"},
+      {"name": "terrain", "unit": "—", "description": "nominal / pente / sable"},
+      {"name": "motor{1..6}_current_A", "unit": "A", "description": "Courant moteur de traction de la roue i", "expected_range": "0 – 2"},
+      {"name": "motor{1..6}_temp_C", "unit": "°C", "description": "Température moteur roue i", "expected_range": "-60 – 40"},
+      {"name": "bat_voltage_V", "unit": "V", "description": "Tension bus batterie", "expected_range": "24 – 33"},
+      {"name": "bat_temp_C", "unit": "°C", "description": "Température batterie"},
+      {"name": "avionics_temp_C", "unit": "°C", "description": "Température boîtier avionique (régulée)"},
+      {"name": "heater_power_W", "unit": "W", "description": "Puissance réchauffeurs"},
+      {"name": "link_margin_dB", "unit": "dB", "description": "Marge de liaison UHF (vide pendant coupure planifiée)"},
+      {"name": "comm_planned_blackout", "unit": "0/1", "description": "1 = hors fenêtre de passage (absence de liaison PROGRAMMÉE)"},
+      {"name": "cpu_temp_C", "unit": "°C", "description": "Température calculateur"},
+      {"name": "hazcam_temp_C", "unit": "°C", "description": "Température capteur Hazcam"},
+      {"name": "arm_current_A", "unit": "A", "description": "Courant articulations bras"},
+      {"name": "mast_temp_C", "unit": "°C", "description": "Température actionneurs mât"},
+      {"name": "odometry_km", "unit": "km", "description": "Distance parcourue cumulée"},
+      {"name": "arm_cycles", "unit": "cycles", "description": "Mouvements cumulés du bras"},
+      {"name": "ambient_temp_C", "unit": "°C", "description": "Température ambiante modélisée"},
+      {"name": "label_*", "unit": "0/1", "description": "Vérité terrain des anomalies INJECTÉES (permet de calculer précision/rappel/délai — uniquement parce que les données sont simulées)"}
+    ],
+    "events": {"failure_definition": "Aucune panne terminale. 6 anomalies injectées : dérive courant moteur 3 (t ≥ 2100 h), surcharge bras (3 fenêtres), chute de tension (2), réchauffeur bloqué (1820–1880 h), perte de liaison non planifiée (3), capteur Hazcam figé (2450–2620 h).", "censoring": "—", "eol_threshold": null},
+    "preprocessing": "—",
+    "train_window": {"from_h": 0, "to_h": 800, "rule": "Fenêtre d'apprentissage « normale » (sans anomalie injectée). Normalisation calculée sur cette fenêtre uniquement."},
+    "roles": ["état des composants", "détection d'anomalies et métriques", "usage consommé (km, cycles, heures)", "base des tests de perturbation"],
+    "transfer_warning": false
+  },
+  {
+    "id": "battery_sim",
+    "file": "battery_packs_sim.csv",
+    "name": "Vieillissement de packs Li-ion (7 packs + pack rover en service)",
+    "provenance": "simulated",
+    "origin": "Généré par tools/gen_datasets.py : C(n) = C0·(1 − a·n^b) + bruit, C0 = 40 Ah (valeur de démonstration). Ne remplace PAS le NASA Battery Data Set (non fourni).",
+    "citation": "—",
+    "license": "Libre.",
+    "structure": {"format": "CSV long", "unit_column": "pack_id", "time_column": "cycle", "sampling": "1 mesure / 5 cycles"},
+    "variables": [
+      {"name": "pack_id", "unit": "—", "description": "P01…P07 (run-to-EOL) ; ROVER_PACK (en service, censuré)"},
+      {"name": "cycle", "unit": "cycles", "description": "Cycles charge/décharge"},
+      {"name": "capacity_Ah", "unit": "Ah", "description": "Capacité mesurée"},
+      {"name": "r_internal_ohm", "unit": "Ω", "description": "Résistance interne"},
+      {"name": "temp_C", "unit": "°C", "description": "Température moyenne de cycle"}
+    ],
+    "events": {"failure_definition": "Capacité ≤ 80 % de C0", "eol_threshold": {"value": 32.0, "unit": "Ah", "source": "Critère usuel 80 % C0 — valeur de démonstration éditable"}, "censoring": "ROVER_PACK censuré"},
+    "split": {"train": ["P01","P02","P03","P04"], "validation": ["P05"], "test": ["P06","P07"], "rule": "Séparation PAR PACK."},
+    "preprocessing": "—",
+    "roles": ["RUL batterie (fin de vie définie)", "état de santé (SOH)"],
+    "transfer_warning": false
+  },
+  {
+    "id": "rover_events_sim",
+    "file": "rover_events_sim.csv",
+    "name": "Journal d'événements rover synthétique",
+    "provenance": "simulated",
+    "origin": "Généré par tools/gen_datasets.py (redémarrages calculateur : processus de Poisson, durées lognormales ; pertes de liaison non planifiées alignées sur la télémétrie simulée).",
+    "citation": "—",
+    "license": "Libre.",
+    "structure": {"format": "CSV", "time_column": "start_h"},
+    "variables": [
+      {"name": "event_id", "unit": "—"}, {"name": "component_id", "unit": "—"},
+      {"name": "type", "unit": "—", "description": "panne = indisponibilité non planifiée ; planifiee = exclue du calcul MTBF"},
+      {"name": "start_h", "unit": "h"}, {"name": "end_h", "unit": "h"}, {"name": "description", "unit": "—"}
+    ],
+    "events": {"failure_definition": "type = panne", "observation_window_h": 3000, "censoring": "Période d'observation 0–3000 h"},
+    "preprocessing": "—",
+    "roles": ["MTBF / MTTR / disponibilité (démonstration du calcul, SIMULÉ)"],
+    "transfer_warning": false
+  }
+]

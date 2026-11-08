@@ -1,0 +1,9 @@
+# Backend MarsRover Health — versions testées (Python 3.13)
+numpy>=2.0
+scipy>=1.13
+pandas>=2.2
+scikit-learn>=1.5
+xgboost>=2.1
+scikit-survival>=0.23
+lifelines>=0.29
+joblib>=1.4

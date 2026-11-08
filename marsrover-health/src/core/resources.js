@@ -1,0 +1,31 @@
+// Inventaire des ressources FOURNIES au projet (résultat de la lecture initiale — cf. docs/INVENTAIRE.md).
+export const RESOURCES = [
+  ['Cahier_des_charges_MarsRover_Health_Pro_2.pdf', 'PDF, 13 p., 1,5 Mo', 'Cahier des charges fonctionnel et scientifique (règles de provenance, FMDS, ML, validation)', '—', 'Référentiel des règles de l\'application', 'lu intégralement'],
+  ['Prompt_MarsRover_Health_WebApp.md', 'Markdown, 16 Ko', 'Prompt maître : architecture, modules, critères d\'acceptation', '—', 'Spécification de l\'application', 'lu intégralement'],
+  ['ZIP_DE_PROJET.pdf', 'PDF, 1 p.', 'Annexe A (page 7) d\'une version 1.0 du cahier des charges : liens PCoE / PDS', '—', 'Liens de téléchargement des datasets', 'lu — version 1.0 complète NON fournie'],
+  ['Complément_DataSets.pdf', 'PDF, 24 p.', 'Catalogue de datasets (C-MAPSS, FEMTO, IMS, batteries, survie…) avec liens', '—', 'Inventaire des sources externes', 'lu intégralement'],
+  ['Guide_de_formation_…_vf.pdf', 'PDF, 27 p.', 'Parcours de formation Statistics & ML / PdM Toolbox (fonctions MATLAB)', '—', 'Choix des fonctions des scripts .m générés', 'lu (texte + pages image)'],
+  ['Complément_pour_le_Guide….pdf', 'PDF, 5 p.', 'Liens MathWorks, jeux de fiabilité suggérés (pneumatic motor, pump turbine)', '—', 'Références', 'lu intégralement'],
+  ['ML_en_FMDS.pdf', 'PDF, 11 p. (images)', 'ML dans l\'approche non paramétrique : RSF, Cox, modes compétitifs, cas éolien', '—', 'Méthodes (survie conditionnelle, Cox)', 'lu (pages rastérisées)'],
+  ['25042_Perseverance.glb', 'glTF binaire, 11,7 Mo, 66 nœuds, 65 maillages, 213 130 sommets', 'Modèle 3D Perseverance (Blender glTF I/O)', '—', 'Vue 3D (roues et suspension découpées par géométrie)', 'analysé (structure, nœuds, géométrie)'],
+  ['25042_Perseverance.usdz', 'USDZ, 13,3 Mo', 'Même modèle au format Apple', '—', 'Lien réalité augmentée iOS', 'inventorié'],
+  ['Démos Matlab.zip (3 .mlx)', 'Live Scripts', 'Diagnostic roulements (MFPT), pronostic roulement éolien (exponentialDegradationModel), taux de défaut corporate (finance)', '—', 'Inspiration des scripts .m ; jeux MathWorks NON fournis ; démo finance hors périmètre', 'lus (XML)'],
+  ['Exemples de scripts.zip — 41 .m, 4 .py, 2 .docx, 2 .png', 'Scripts', 'KM (ecdf, Greenwood), Nelson-Aalen, noyaux, Weibull MCO/MLE, bayésien, maintenabilité lognormale, RUL extrapolation, Cox', '—', 'Méthodes réimplémentées en JS et dans les .m générés', 'lus intégralement ; bugs signalés'],
+  ['degradation_vibration.csv', 'CSV, 363 l., 10 roulements', 'Vibration RMS (mm/s) vs heures, run-to-failure, seuil 3,5 mm/s', 'simulated', 'RUL, anomalies, substitution', 'converti (BOM retiré)'],
+  ['reliability_data.mat (Estimation non paramétrique)', 'MAT, 500 obs.', 'T_obs, C_ind (1 = panne) — mélange Weibull', 'simulated', 'KM, Weibull, noyaux', 'converti en CSV'],
+  ['reliability_data.mat (Estimation RUL par extrapolation)', 'MAT, 100 obs.', 'T_obs = identifiants texte BRG-xxxx, C_ind = 1 partout', null, 'AUCUN', 'CORROMPU / incohérent — non utilisé'],
+  ['DataReal.m (valeurs)', '23 durées', 'Durées de vie de roulements (10^6 cycles)', 'experimental', 'KM, forme β pour la substitution', 'extrait'],
+  ['EtudeCas_KM.m (valeurs)', '20 durées', 'Détecteurs incendie (mois), source non documentée', 'simulated', 'Exemple KM', 'extrait, classé démonstration'],
+  ['Docs_utiles.zip (12 PDF, 2 213 p., 1 .txt)', 'Livres, thèse, guides', 'RUL data-driven (Springer), PHM énergie (MDPI), thèse Blancke, polycopié FMD, Weibull, SdF, PdM Toolbox UG R2025b…', '—', 'Bibliographie / vérification des fonctions MATLAB', 'titres, sommaires et extraits consultés ; non lus page à page ; 1 PDF scanné sans texte'],
+  ['Datasets externes cités (IMS, FEMTO, RAT MER, NASA Battery, C-MAPSS, AI4I…)', '—', 'Liens uniquement', 'mission / experimental', 'Importables via « Import »', 'NON FOURNIS — téléchargement bloqué depuis l\'environnement de construction'],
+];
+export const SCRIPT_ISSUES = [
+  'AnalyseValidation_Eolienne3.m : wblfit reçoit le statut de PANNE comme argument « censoring » (inversé) et la p-value Anderson-Darling est codée en dur (0,35).',
+  'RUL_ML_RSF.m, RUL_RSF_v0/v1.m, RUL_manuel.m : fitcox(…, \'Censoring\', \'Event\') où Event = 1 signifie panne → censure inversée.',
+  'RUL_RSF_v1.m : variable New_Data_Table utilisée sans être définie.',
+  'Scripts « RSF » : implémentent en réalité un modèle de Cox (pas de Random Survival Forest).',
+  'reliability_analysis*.m : fonctions « prognosetoRUL » / « fitDegradationModel » inexistantes dans la PdM Toolbox (utiliser exponentialDegradationModel + fit + predictRUL).',
+  'RUL_RSF_vf.m : B_level = 0.10 avec libellé « B10 (S = 0.90) » — incohérence (calcule le B90).',
+  'KM_KernelSmoothing*.m, AnalyseValidation_Eolienne3.m : ĥ = f̂_KDE(défaillances seules)/R̂ biaisé sous censure — remplacé ici par l\'estimateur de Ramlau-Hansen.',
+  'Guide_KM_Kernel Smoothing.docx cite Nelson_Aalen_Lissage.m, absent de l\'archive ; dossier « Autres scripts » vide.',
+];

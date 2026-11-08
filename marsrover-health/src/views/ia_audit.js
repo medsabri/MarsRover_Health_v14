@@ -1,0 +1,42 @@
+// =============================================================================
+// ia_audit.js — rapport d'audit de l'application initiale (constats vérifiés le 07/11/2026).
+// state ∈ correct | incorrect | partiel | absent | impossible
+// =============================================================================
+export const AUDIT = [
+  { area: 'Architecture', feature: 'Frontend SPA (modules ES, bundle esbuild, ouverture file://)', state: 'correct', finding: 'Routage par #hash, 9 interfaces, fonctionne hors ligne ; design system centralisé.', action: 'Conservé sans modification de structure ; nouvelle route #/ia ajoutée.' },
+  { area: 'Architecture', feature: 'Backend, services et API', state: 'absent', finding: 'Aucun serveur : tous les calculs (KM, Weibull, Isolation Forest, RUL) s\'exécutaient dans le navigateur.', action: 'Backend Python (services par module) + API REST sans dépendance web ; les nouveaux calculs lourds sont faits côté serveur.' },
+  { area: 'Base de données', feature: 'Stockage SQL des mesures et résultats', state: 'absent', finding: 'CSV embarqués en JavaScript ; imports utilisateur en IndexedDB (non partagés, non requêtables).', action: 'SQLite + migrations versionnées (001, 002) : les 14 tables demandées + recommendations, audit_log et module_payload ; index sur (équipement, temps).' },
+  { area: 'Données', feature: 'Traçabilité de la provenance', state: 'correct', finding: 'Badge RÉEL / EXPÉRIMENTAL / SIMULÉ / SUBSTITUTION sur chaque bloc ; import refusé sans provenance.', action: 'Étendu à la base : colonne provenance obligatoire (contrainte CHECK) sur chaque table.' },
+  { area: 'Données', feature: 'Jeu C-MAPSS présenté comme « réel »', state: 'incorrect', finding: 'C-MAPSS est produit par le simulateur NASA (Saxena et al. 2008) : ce ne sont pas des mesures.', action: 'Classé SIMULÉ (référence NASA) dans toute l\'application.' },
+  { area: 'Données', feature: 'Batteries Li-ion NASA — qualité', state: 'partiel', finding: '14 cellules sous 1,4 Ah dès le départ (essais à 4 °C, profils différents), capacités nulles sur des cycles invalides, doublons B0025–B0028.', action: 'Drapeau qc_flag (jamais de correction) ; fiabilité limitée aux cellules saines (C₀ ≥ 1,7 Ah) ; doublons ignorés ; médiane glissante pour le critère EOL.' },
+  { area: 'Données', feature: 'IGBT — unité du capteur de dissipateur', state: 'impossible', finding: 'HEAT_SINK_TEMP ≈ 0,2 : grandeur brute sans unité documentée.', action: 'Conservée en base comme « heatsink_raw », exclue des modèles.' },
+  { area: 'Données', feature: 'Milling — valeurs manquantes', state: 'partiel', finding: '21 passes sans mesure d\'usure VB ; courant DC constant sur certaines passes (kurtosis indéfinie).', action: 'Passes sans VB : prédites mais exclues des métriques ; variables indéfinies exclues et listées.' },
+  { area: 'Données', feature: 'Cohérence des unités', state: 'correct', finding: 'Chaque RUL et durée porte son unité ; C-MAPSS conserve ses unités d\'origine (°R, psia, rpm).', action: 'Unité stockée par mesure (sensor_data.unit) et par résultat.' },
+  { area: 'Données', feature: 'Synchronisation temporelle', state: 'correct', finding: 'Les jeux ont des bases de temps différentes (cycle, minute de coupe, seconde, décharge) ; ils n\'étaient pas fusionnés.', action: 'Aucune fusion inter-jeux ; unité de temps déclarée par équipement (equipment.time_unit).' },
+  { area: 'FMDS', feature: 'MTBF = TBF / r et IC du χ²', state: 'correct', finding: 'Formule et degrés de liberté corrects (essai tronqué en temps).', action: 'Vérifié : 597 h pour le calculateur, identique dans le backend (test automatisé).' },
+  { area: 'FMDS', feature: 'MTTR', state: 'correct', finding: 'Moyenne des durées de remise en service ; seules les pannes terminées.', action: 'Repris côté serveur ; réparations non terminées explicitement exclues.' },
+  { area: 'FMDS', feature: 'Disponibilité', state: 'incorrect', finding: 'Affichée comme « opérationnelle » alors que TBF / TR exclut les arrêts planifiés : c\'est la disponibilité intrinsèque Ai.', action: 'Renommée Ai ; Ao = U / (U + arrêts panne + arrêts planifiés) ajoutée (tableau de bord et backend).' },
+  { area: 'Fiabilité', feature: 'Kaplan–Meier (Greenwood log-log), Nelson–Aalen, Weibull MLE censuré', state: 'correct', finding: 'Résultats identiques à lifelines (tests/crosscheck_lifelines.py).', action: 'Conservé ; Weibull serveur également validé contre lifelines.' },
+  { area: 'ML', feature: 'Isolation Forest (JavaScript)', state: 'incorrect', finding: 'Sous-échantillons tirés AVEC remise, alors que l\'algorithme de Liu et al. (2008) tire sans remise.', action: 'Corrigé (Fisher–Yates partiel) ; version de référence scikit-learn côté serveur.' },
+  { area: 'ML', feature: 'z-score robuste contextuel et filtre de persistance', state: 'correct', finding: 'Références apprises sur la fenêtre d\'apprentissage uniquement (pas de fuite).', action: 'Conservé.' },
+  { area: 'Anomalies', feature: 'One-Class SVM, autoencodeur, seuils de validation, AUC-ROC', state: 'absent', finding: 'Un seul détecteur multivarié ; pas de comparaison ni d\'AUC.', action: 'Module 1 : 3 détecteurs, seuil par quantile de validation, précision / rappel / F1 / AUC.' },
+  { area: 'Diagnostic', feature: 'Classification des défaillances', state: 'absent', finding: 'Système expert à règles uniquement, sans probabilités de classe.', action: 'Module 2 : Random Forest / XGBoost / SVM, validation par outil, matrice de confusion.' },
+  { area: 'Diagnostic', feature: 'Classes surchauffe, surpression, électrique, capteur, surcharge', state: 'impossible', finding: 'Aucun historique de pannes étiqueté par type.', action: 'Non entraîné ; données nécessaires précisées dans l\'interface.' },
+  { area: 'Fiabilité', feature: 'Random Survival Forest, C-index, Brier', state: 'absent', finding: 'Pas de modèle de survie avec covariables.', action: 'Module 3 : RSF vs Weibull vs Weibull AFT sur 1 416 unités, C-index et IBS (IPCW).' },
+  { area: 'RUL', feature: 'XGBoost et LSTM supervisés', state: 'absent', finding: 'Modèles de dégradation sur données simulées du rover, sans cible supervisée.', action: 'Module 4 sur C-MAPSS FD001 (cible fiable : trajectoires jusqu\'à défaillance).' },
+  { area: 'Maintenabilité', feature: 'MTTR prévisionnel', state: 'impossible', finding: 'Aucun jeu ne contient d\'interventions de réparation réelles.', action: 'Pipeline prêt et testé ; statut « En attente de données » ; import CSV via l\'API.' },
+  { area: 'Disponibilité', feature: 'Disponibilité prévisionnelle', state: 'impossible', finding: 'Un seul journal simulé de 10 événements.', action: 'Statut « En attente de données » ; aucune prévision affichée.' },
+  { area: 'Sécurité', feature: 'AMDEC', state: 'partiel', finding: 'NPR = G × O × D correct, mais cotations de démonstration et modifications non tracées.', action: 'Table fmea (NPR calculé par la base), édition avec auteur et date, journal d\'audit.' },
+  { area: 'Sécurité', feature: 'Arbre de défaillances (FTA)', state: 'absent', finding: '—', action: 'Portes ET / OU, coupes minimales, bornes si probabilité manquante, probabilités tracées.' },
+  { area: 'Modèles', feature: 'Registre, versions, statuts, réentraînement', state: 'absent', finding: '—', action: 'model_registry + model_evaluation ; 6 statuts ; détection des entraînements interrompus.' },
+  { area: 'Décision', feature: 'Recommandations traçables et validables', state: 'partiel', finding: 'L\'assistant proposait des actions sans trace ni validation.', action: 'Moteur de règles R1–R6 avec preuves, priorité, validation nominative.' },
+];
+export const ARCHI = [
+  ['Navigateur', 'SPA existante + section #/ia ; lit l\'API si le backend tourne, sinon un instantané en lecture seule.'],
+  ['API REST', 'backend/mrh/api.py — http.server (stdlib), JSON, erreurs HTTP explicites, export CSV.'],
+  ['Services', 'anomaly · diagnosis · reliability · rul · maintainability · availability · safety · recommendations · registry · jobs.'],
+  ['ML', 'scikit-learn, XGBoost, scikit-survival, lifelines ; LSTM NumPy maison ; Weibull MLE maison.'],
+  ['Base', 'SQLite (backend/data/mrh.sqlite) — migrations SQL, provenance obligatoire, tables append-only.'],
+  ['Artefacts', 'backend/models/*.joblib — un fichier par version de modèle.'],
+  ['Hors ligne', 'python -m mrh.cli export → data/ml_snapshot.js (mêmes réponses que l\'API).'],
+];

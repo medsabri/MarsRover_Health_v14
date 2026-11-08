@@ -1,0 +1,15 @@
+{
+  "name": "marsrover-health",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "MarsRover Health — prototype académique FMDS / PHM / ML (aide à la décision)",
+  "scripts": {
+    "data": "python3 tools/gen_datasets.py",
+    "build": "bash tools/build.sh && node tools/gen_matlab.mjs",
+    "serve": "python3 -m http.server 8765",
+    "test:ml": "node tests/ml_check.mjs && python3 tests/crosscheck_lifelines.py",
+    "test:e2e": "node tests/e2e.cjs file"
+  },
+  "devDependencies": { "three": "0.160.1", "chart.js": "4.4.1", "papaparse": "5.4.1", "jszip": "3.10.1", "esbuild": "0.20.2", "playwright": "*" }
+}

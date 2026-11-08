@@ -1,0 +1,89 @@
+{
+ "bearings_datareal_exp.csv": {
+  "KM+IC max abs err": 3.6376424095152515e-10,
+  "median JS/lifelines": [
+   67.8,
+   67.8
+  ],
+  "Weibull beta JS/lifelines": [
+   1.9926503484789921,
+   1.9926491018155632
+  ],
+  "Weibull eta JS/lifelines": [
+   82.76006084443625,
+   82.76008889120274
+  ],
+  "NA H(tmax) JS/lifelines": [
+   2.725200601995931,
+   2.73429151108684
+  ],
+  "Lognormal mu,sigma JS/lifelines": [
+   [
+    4.159717796723117,
+    0.5424163917221905
+   ],
+   [
+    4.15971120116638,
+    0.5424178103070486
+   ]
+  ]
+ },
+ "reliability_500_sim.csv": {
+  "KM+IC max abs err": 2.213773608872316e-11,
+  "median JS/lifelines": [
+   811.0863,
+   811.0863
+  ],
+  "Weibull beta JS/lifelines": [
+   0.7116175366680559,
+   0.7116175311295784
+  ],
+  "Weibull eta JS/lifelines": [
+   1083.800675659583,
+   1083.8006741985673
+  ],
+  "NA H(tmax) JS/lifelines": [
+   1.2716097906951318,
+   1.271609790695126
+  ],
+  "Lognormal mu,sigma JS/lifelines": [
+   [
+    6.424954001668882,
+    2.4115644175523583
+   ],
+   [
+    6.424928387095336,
+    2.411551477085528
+   ]
+  ]
+ },
+ "fire_detectors_demo.csv": {
+  "KM+IC max abs err": 3.9987402278285344e-10,
+  "median JS/lifelines": [
+   18,
+   18.0
+  ],
+  "Weibull beta JS/lifelines": [
+   1.609156804809651,
+   1.6091582300099816
+  ],
+  "Weibull eta JS/lifelines": [
+   24.110946183158354,
+   24.110910480547027
+  ],
+  "NA H(tmax) JS/lifelines": [
+   1.0724038818079065,
+   1.0724038818079067
+  ],
+  "Lognormal mu,sigma JS/lifelines": [
+   [
+    2.9115034345761153,
+    0.8607549335788393
+   ],
+   [
+    2.9114988667801196,
+    0.8607686395137616
+   ]
+  ]
+ }
+}

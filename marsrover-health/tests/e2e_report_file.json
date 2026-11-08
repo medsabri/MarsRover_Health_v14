@@ -1,0 +1,238 @@
+{
+ "proto": "file",
+ "base": "file:///home/claude/marsrover-health/index.html",
+ "date": "2026-11-07T23:56:01.718Z",
+ "steps": [
+  {
+   "name": "À la une : page par défaut, vidéo en boucle sans son",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "À la une : 3 fiches + logo de l'école",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Chargement des datasets embarqués",
+   "pass": true,
+   "detail": "vib_bearings_sim:363, rel500_sim:500, bearings_exp:23, fire_demo:20, rover_telemetry_sim:1500, battery_sim:892, rover_events_sim:10"
+  },
+  {
+   "name": "Aucune donnée étiquetée « réel mission »",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Rover 3D chargé (GLB ou procédural)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Accueil : panneaux retirés, fiches à gauche et à droite",
+   "pass": true,
+   "detail": "gauche 13 · droite 12"
+  },
+  {
+   "name": "Barre d'outils : date et heure",
+   "pass": true,
+   "detail": "00:56:21"
+  },
+  {
+   "name": "Étiquettes 3D par composant (regroupées par partie)",
+   "pass": true,
+   "detail": "25 composants étiquetés"
+  },
+  {
+   "name": "Clic 3D → fiche composant sélectionnée",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Clic fiche → sélection",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Barre d'outils : 10 sous-interfaces (dont Rapport ; MATLAB et Assistant retirés)",
+   "pass": true,
+   "detail": "#/une #/accueil #/dashboard #/ia #/maintenance #/catalogue #/perturbations #/terrain #/donnees #/rapport"
+  },
+  {
+   "name": "Dashboard : 3 sous-interfaces, assistant retiré",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Dashboard : RUL en pleine largeur (vue 2)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Dashboard : KM / Weibull",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Dashboard : « non calculable » affiché",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Dashboard : RUL avec unité et IC",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Dashboard : interprétation intelligente",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Dashboard : graphiques rendus (3 vues)",
+   "pass": true,
+   "detail": "7 canvas"
+  },
+  {
+   "name": "Maintenance non paramétrique : plan « estimé par substitution »",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Export du dataset dérivé",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Maintenance paramétrique (batterie, RUL)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Catalogue : nominal / actuel / écart",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Catalogue : vignettes 3D",
+   "pass": true,
+   "detail": "25 vignettes"
+  },
+  {
+   "name": "Perturbation : avant/après + détection",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Perturbation : propagation 3D + cascade",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Perturbation : scénario sauvegardé",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Terrain : lecture synchronisée",
+   "pass": true,
+   "detail": "pas 72"
+  },
+  {
+   "name": "Terrain → impact appliqué aux composants / tableau de bord",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Import refusé sans provenance déclarée",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Import avec mapping + provenance",
+   "pass": true,
+   "detail": "8 datasets"
+  },
+  {
+   "name": "Rapport : graphiques, images, méthode de comparaison et décisions",
+   "pass": true,
+   "detail": "8 graphiques · 8 images"
+  },
+  {
+   "name": "Rapport : PDF téléchargeable avec logos",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "IA : source des résultats (API en http, instantané en file)",
+   "pass": true,
+   "detail": "snapshot"
+  },
+  {
+   "name": "IA : anomalies (F1, AUC, historique)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "IA : diagnostic + 5 classes de défaut (maintenance préventive)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "IA : Weibull + RSF (C-index, Brier)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "IA : RUL XGBoost vs LSTM avec unité",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "IA : MTTR prévisionnel non inventé (sans note)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "IA : AMDEC / FTA / coupes minimales (sans avertissement)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "IA : comparaison des algorithmes",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "IA : FEMTO (Weibull 17 roulements, RUL, détection)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "IA : HIRF (53 essais, résistance interne, BHM)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "IA : recommandations traçables",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Responsive : pas de défilement horizontal (390 px)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "Mesure fps (indicative, rendu logiciel)",
+   "pass": true,
+   "detail": "1 fps"
+  },
+  {
+   "name": "Console sans erreur",
+   "pass": true,
+   "detail": ""
+  }
+ ],
+ "errors": []
+}

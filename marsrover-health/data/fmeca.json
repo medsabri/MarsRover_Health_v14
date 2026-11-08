@@ -1,0 +1,28 @@
+{
+  "_info": "AMDEC/FMECA préliminaire. Cotations G (gravité), O (occurrence), D (détectabilité) sur 1–10 : VALEURS DE DÉMONSTRATION à valider par l'équipe (jugement d'expert, non issues de données). RPN = G × O × D. Criticité C = G × O.",
+  "scales": {
+    "G": "1 = effet négligeable … 10 = perte de mission",
+    "O": "1 = improbable … 10 = quasi certain sur la mission",
+    "D": "1 = détecté à coup sûr par la télémétrie … 10 = indétectable avant l'effet"
+  },
+  "modes": [
+    {"id":"FM01","component":"wheel_1","mode":"Perforation / fissuration de la jante","cause":"Roches pointues, fatigue","effect":"Baisse de traction, vibration","detection":"Imagerie MAHLI/Hazcam, courant moteur","G":6,"O":5,"D":5,"mitigation":"Planification de trajectoire, inspection d'images périodique"},
+    {"id":"FM02","component":"wheel_4","mode":"Perforation / fissuration de la jante","cause":"Roches pointues, fatigue","effect":"Baisse de traction","detection":"Imagerie, courant moteur","G":6,"O":5,"D":5,"mitigation":"Idem FM01"},
+    {"id":"FM03","component":"motor_3","mode":"Augmentation du frottement (réducteur)","cause":"Usure, contamination par la poussière","effect":"Surconsommation, échauffement","detection":"Courant / température moteur","G":7,"O":4,"D":3,"mitigation":"Surveillance de tendance du courant, comparaison inter-roues"},
+    {"id":"FM04","component":"motor_1","mode":"Blocage du moteur de direction","cause":"Défaut d'encodeur, grippage","effect":"Perte de braquage","detection":"Position/encodeur, courant","G":8,"O":2,"D":3,"mitigation":"Mode conduite sans braquage (dérapage)"},
+    {"id":"FM05","component":"rocker_bogie_l","mode":"Jeu / grippage d'un pivot","cause":"Fatigue des paliers","effect":"Répartition de charge anormale","detection":"Inclinomètres, différentiel","G":7,"O":2,"D":6,"mitigation":"Limiter les franchissements extrêmes"},
+    {"id":"FM06","component":"robotic_arm","mode":"Surcharge d'une articulation","cause":"Contact imprévu, blocage","effect":"Arrêt du bras, risque structurel","detection":"Courant articulation, butées","G":7,"O":3,"D":2,"mitigation":"Limitation de couple, contrôle des contacts"},
+    {"id":"FM07","component":"rat_tool","mode":"Usure / blocage du foret","cause":"Roches dures, usure des dents","effect":"Échec du prélèvement","detection":"Courant moteur percussion, vitesse","G":5,"O":4,"D":4,"mitigation":"Changement de foret (bits de rechange), profils de perçage"},
+    {"id":"FM08","component":"battery","mode":"Perte de capacité","cause":"Vieillissement électrochimique","effect":"Énergie disponible réduite","detection":"Capacité mesurée, tension","G":7,"O":6,"D":2,"mitigation":"Gestion d'état de charge, limiter les décharges profondes"},
+    {"id":"FM09","component":"battery","mode":"Chute de tension transitoire","cause":"Appel de courant, cellule faible","effect":"Réinitialisations, coupures","detection":"Tension bus","G":8,"O":3,"D":2,"mitigation":"Séquencement des charges"},
+    {"id":"FM10","component":"thermal_control","mode":"Réchauffeur bloqué ON","cause":"Relais/thermostat défaillant","effect":"Surchauffe, surconsommation","detection":"Température, puissance réchauffeur","G":6,"O":3,"D":3,"mitigation":"Commutation redondante, seuils logiciels"},
+    {"id":"FM11","component":"thermal_control","mode":"Réchauffeur inopérant","cause":"Coupure de circuit","effect":"Température basse, risque de gel des équipements","detection":"Température","G":8,"O":2,"D":3,"mitigation":"Réchauffeur redondant"},
+    {"id":"FM12","component":"comms","mode":"Perte de liaison non planifiée","cause":"Défaut transpondeur, pointage, orbiteur","effect":"Indisponibilité des commandes et de la télémétrie","detection":"Marge de liaison, sessions manquées","G":6,"O":4,"D":2,"mitigation":"Distinguer coupure programmée / panne, liaisons redondantes"},
+    {"id":"FM13","component":"computer","mode":"Redémarrage intempestif","cause":"Erreur logicielle, SEU (rayonnement)","effect":"Perte de sol de travail","detection":"Journal d'événements","G":5,"O":5,"D":1,"mitigation":"Calculateur redondant, mode sûr"},
+    {"id":"FM14","component":"hazcams","mode":"Capteur figé / dérive","cause":"Défaut électronique, contamination","effect":"Navigation autonome dégradée","detection":"Cohérence inter-capteurs, variance nulle","G":6,"O":3,"D":5,"mitigation":"Contrôle de cohérence, caméra redondante"},
+    {"id":"FM15","component":"mast","mode":"Blocage de l'actionneur pan/tilt","cause":"Poussière, froid","effect":"Imagerie limitée","detection":"Position/courant actionneur","G":5,"O":2,"D":3,"mitigation":"Préchauffage, profils lents"},
+    {"id":"FM16","component":"power_mmrtg","mode":"Décroissance de puissance plus rapide que prévu","cause":"Dégradation des thermocouples","effect":"Budget énergétique réduit","detection":"Puissance de sortie","G":8,"O":2,"D":2,"mitigation":"Replanification énergétique"},
+    {"id":"FM17","component":"wheel_3","mode":"Usure des crampons","cause":"Abrasion sur terrain rocheux","effect":"Glissement accru","detection":"Glissement estimé (odométrie visuelle)","G":4,"O":6,"D":5,"mitigation":"Itinéraires sur terrain meuble"},
+    {"id":"FM18","component":"instruments_turret","mode":"Contamination de l'optique","cause":"Poussière lors de l'abrasion","effect":"Mesures dégradées","detection":"Images de calibration","G":4,"O":4,"D":4,"mitigation":"Capots, procédure de nettoyage"}
+  ]
+}
